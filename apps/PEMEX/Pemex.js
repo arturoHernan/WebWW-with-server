@@ -102,10 +102,11 @@ require(['../../src/WorldWind', '../util/ProjectionMenu'], function (ww, Project
     var modelLayer = new WorldWind.RenderableLayer("model");
     wwd.addLayer(modelLayer);
 
-    var position = new WorldWind.Position(8, -99.82435, 1000e2);
-    var colladaLoader = new WorldWind.ColladaLoader(position);
+    var position = new WorldWind.Position(18, -109.82435, 1000e2);
+    var colladaLoader = new WorldWind.ColladaLoader(position);    
 
     var modelScene;
+    var modelScene2;
 
     var colladaModels = [
         {
@@ -184,40 +185,77 @@ require(['../../src/WorldWind', '../util/ProjectionMenu'], function (ww, Project
             a.text = colladaModels[i].displayName;
             a.onclick = selectModel;
             li.appendChild(a);
-            modelsCombo.appendChild(li);
+            //modelsCombo.appendChild(li);
         }
     }
 
     function selectModel(event) {
 
-        modelSelectorButton.innerHTML = this.text;
+        //modelSelectorButton.innerHTML = this.text;
 
+        /*
         var pos = colladaModels.map(function (model) {
             return model.displayName;
         }).indexOf(this.text);
-        var model = colladaModels[pos];
+        var model = colladaModels[pos];*/
 
-        colladaLoader.init({dirPath: './PEMEX/pemex_models/' + model.path + '/'});
-        colladaLoader.load(model.fileName, function (scene) {
-
-            console.log('scene', scene);
+        colladaLoader.init({dirPath: './PEMEX/pemex_models/barco/'});
+        colladaLoader.load('Ship-boat.dae', function (scene) {            
 
             if (scene) {
-                scene.scale = model.initialScale;
+                scene.scale = 200;
                 scene.altitudeMode = WorldWind.ABSOLUTE;
-                scene.useTexturePaths = model.useTexturePaths;
+                scene.useTexturePaths = true;
 
-                modelLayer.removeAllRenderables();
+                //modelLayer.removeAllRenderables();
                 modelLayer.addRenderable(scene);
 
                 modelScene = scene;
 
-                sliderScale.slider("option", "max", model.maxScale);
-                sliderScale.slider("option", "value", model.initialScale);
-                spanScale.html(model.initialScale);
+                //sliderScale.slider("option", "max", model.maxScale);
+                //sliderScale.slider("option", "value", model.initialScale);
+                //spanScale.html(model.initialScale);
             }
 
         });
+
+        
+        //Segundo modelo
+        var posx2 = 0;
+        
+        var myInterval = setInterval(function() { 
+            console.log("Intervalo de tiempo");
+            posx2++;
+            if(posx2 <= 18){                
+                var position2 = new WorldWind.Position(posx2, -99.82435, 1000e2);
+                var colladaLoader2 = new WorldWind.ColladaLoader(position2);
+
+                colladaLoader2.init({dirPath: './PEMEX/pemex_models/2_cylinder_engine/'});
+                colladaLoader2.load('2_cylinder_engine.dae', function (scene) {                       
+
+                    if (scene) {
+                        scene.scale = 200;
+                        scene.altitudeMode = WorldWind.ABSOLUTE;
+                        scene.useTexturePaths = true;
+                        
+                        modelLayer.removeRenderable(modelScene2)
+                        modelLayer.refresh();                        
+                        modelLayer.addRenderable(scene);
+                        modelLayer.refresh();
+
+                        modelScene2 = scene;                        
+                    }
+
+                });                
+            }            
+        }, 200);        
+        
+        
+        setTimeout(function(){
+            clearInterval(myInterval);
+        }, 20000);
     }
+
+    selectModel();
 
 });

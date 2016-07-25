@@ -27,7 +27,7 @@ module.exports = function (grunt) {
                 livereload: 35729,
             },
             sources: {
-                files: ['examples/*.js', 'examples/*.html', 'apps/*.js', 'apps/*.html']
+                files: ['examples/*.js', 'examples/*.html', 'apps/**/*.js', 'apps/**/*.html']
             }
         },
 
