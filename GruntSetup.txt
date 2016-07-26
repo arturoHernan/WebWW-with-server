@@ -1,4 +1,4 @@
-This file explains how to install and run Grunt for building Web World Wind artifacts.
+﻿This file explains how to install and run Grunt for building Web World Wind artifacts.
 On OS X and Linux you will need to run the given commands as root (using sudo). On Windows
 you can run them as given.
 
@@ -14,6 +14,8 @@ Install grunt-cli (http://gruntjs.com/getting-started)
 	npm update
 	npm install -g grunt-cli
 
+Arthur edit:
+	grunt server
 
 The below installations are per-project — must be performed with each new full-project checkout -
 with cwd as the project folder.
