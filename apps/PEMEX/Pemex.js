@@ -257,5 +257,5 @@ require(['../../src/WorldWind', '../util/ProjectionMenu'], function (ww, Project
     }
 
     selectModel();
-
+    
 });
