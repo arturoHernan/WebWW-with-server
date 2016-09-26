@@ -21,14 +21,14 @@ module.exports = function (grunt) {
             }
           }
         },
-        
+
         watch: {
             options: {
                 livereload: 35729,
-            },            
+            },
             sources: {
-                files: ['examples/*.js', 'examples/*.html']
-            }            
+                files: ['examples/*.js', 'examples/*.html', 'apps/**/*.js', 'apps/**/*.html']
+            }
         },
 
         jsdoc: {
